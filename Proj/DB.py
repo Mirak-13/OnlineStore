@@ -1,24 +1,27 @@
-from psycopg2 import OperationalError, connect
+import psycopg2
+from config import db_name, user, password, host
 
-
-def create_connection(db_name, db_user, db_password, db_host, db_port):
-    connection = None
+def show_all():
     try:
-        connection = connect(
-            database=db_name,
-            user=db_user,
-            password=db_password,
-            host=db_host,
-            port=db_port,
-        )
-        print("Connection to PostgreSQL DB successful")
-    except OperationalError as e:
-        print(f"The error '{e}' occurred")
-    return connection
+        connection = psycopg2.connect(database=db_name,
+                user=user,
+                password=password,
+                host=host,
+                )
+        connection.autocommit = True
+    
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM market;')
+            for i in cursor.fetchall():
+                print(i)
+        
+    except Exception as _ex:
+        print('[INFO] Error while working with PostgreSQL', _ex)
+    finally:
+        if connection:
+            connection.close()
+            print('[INFO] PstgtreSQL connection close')
 
 
-connection = create_connection(
-    "learn_market", "postgres", "12qwaszx", "localhost", "5432"
-)
 
-
+show_all()

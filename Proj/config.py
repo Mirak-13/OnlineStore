@@ -1,0 +1,5 @@
+db_name = "learn_market"
+user = "postgres"
+password = "12qwaszx"
+host = "localhost"
+port = "5432"
