@@ -1,7 +1,9 @@
+# Импорт взаимодествия с sql
 import psycopg2
+# Импорт конфигурации для соединения с БД
 from config import db_name, user, password, host
 
-
+# Функция показать все использует print, так как для удобства был использован цикл
 def show_all():
     try:
         connection = psycopg2.connect(
@@ -25,7 +27,7 @@ def show_all():
             connection.close()
             print("[INFO] PstgtreSQL connection close")
 
-
+# Фнкция показать отдельные элемнеты, нужно sql запрос прописывать вручную и используется print
 def show_any(query):
     try:
         connection = psycopg2.connect(
@@ -48,7 +50,7 @@ def show_any(query):
             connection.close()
             print("[INFO] PstgtreSQL connection close")
 
-
+# Функция запрос для изменений в БД, результат не возвращает, через print возвращает Done
 def query(query):
     try:
         connection = psycopg2.connect(
@@ -71,6 +73,7 @@ def query(query):
             print("[INFO] PstgtreSQL connection close")
 
 
+# Функция вернуть резукльтат, требуется чтобы добавлять в корзину, испульзуется return
 def return_result(query):
     try:
         connection = psycopg2.connect(
@@ -92,6 +95,6 @@ def return_result(query):
             connection.close()
             print("[INFO] PstgtreSQL connection close")
 
-#query('Update market SET price = 51000 where product_id = 1')
+
 
 
